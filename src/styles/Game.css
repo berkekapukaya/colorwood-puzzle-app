@@ -1,38 +1,126 @@
-.game {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 500px;
+.game-area {
+  width: 900px; /* Adjust as needed */
+  height: 600px; /* Adjust as needed */
+  margin: 0 auto;
+  position: relative;
+  background-color: #f0f0f0; /* Light gray background */
+  border: 2px solid #333;
 }
 
 .container {
-    width: 100px;
-    border: 2px solid black;
-    position: relative;
-    margin: 0 10px;
-    transition: all 0.3s ease;
+  position: absolute;
+  width: 75px; /* Same as BOX_SIZE */
+  height: 300px; /* Adjust based on MAX_BOXES_PER_CONTAINER * BOX_SIZE */
+  border: 2px solid black;
+  background-color: white;
 }
 
 .container.completed {
-    border: 4px solid green;
-    box-shadow: 0 0 10px green;
-    pointer-events: none;
+  border: 3px solid gold;
+  box-shadow: 0 0 10px gold;
 }
 
 .box {
-    width: 100%;
-    height: 50px;
-    border: 1px solid black;
-    cursor: pointer;
-    position: absolute;
-    left: 0;
+  width: 75px;  /* Same as BOX_SIZE */
+  height: 75px; /* Same as BOX_SIZE */
+  border: 1px solid black;
+  position: absolute;
+  transition: bottom 0.3s ease;
+}
+
+.box {
+  width: 75px;  /* Same as BOX_SIZE */
+  height: 75px; /* Same as BOX_SIZE */
+  border: 1px solid black;
+  z-index: 11;
+  position: absolute;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .box.selected {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    transition: all 0.3s ease;
+  transform: translateY(-75px); /* Move up by one box height */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Ensure selected boxes appear above others */
+}
+
+.box.animating {
+  animation: moveBox 0.6s forwards;
+  z-index: 10;
+}
+
+.box.sliding {
+  animation: slideDown 0.6s forwards;
+  z-index: 9;
+}
+
+@keyframes moveBox {
+  0% {
+    transform: translateX(0) translateY(var(--initialY));
+  }
+  25% {
+    transform: translateX(0) translateY(var(--initialY));
+  }
+  50% {
+    transform: translateX(var(--moveX)) translateY(var(--initialY));
+  }
+  100% {
+    transform: translateX(var(--moveX)) translateY(var(--moveY));
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(var(--initialY));
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .box {
-    transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.game-header h1 {
+  font-size: 2.5em;
+  color: #333;
+}
+
+.game-header p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+.game-header button {
+  font-size: 1em;
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.game-controls button{
+  font-size: 1em;
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 20px;
+}
+
+.game-header button:hover {
+  background-color: #45a049;
 }
